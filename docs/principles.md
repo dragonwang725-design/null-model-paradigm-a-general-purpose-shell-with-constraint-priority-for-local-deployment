@@ -1,5 +1,5 @@
 
-# NMP 论文原理精要
+# TDA 三层双视角架构论文原理精要
 
 > 来源：*The Null Model Paradigm: Constraint-First Architecture for Reliable LLM Agents*  
 > 作者：loweswang  中文名： 王龙 
