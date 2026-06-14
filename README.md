@@ -1,98 +1,161 @@
-# Null Model Paradigm (NMP)
+# 空模型范式：本地部署的约束优先的通用壳
+null model paradigm: a general-purpose shell with constraint priority for local deployment.
+ 
+——为什么大型语言模型应该是棋谱而不是棋手
 
-> **The LLM is not the agent. The shell is.**
+> **空模型范式认为：所有的判断基于事实，而事实的全景是无限的，提取跟目的相关和相符的事实，就能让 LLM 有判断力。**
 
-This is not a framework. It is an architectural specification for **Purpose–Judgment Partitioning**.
+>**LLM 不是主体，外壳才是。**
+这不是一个框架，而是将**目的-判断-知识**划分的架构规范。
 
----
-
-## I. Definition: The Null Model
-
-The Null Model is **not empty**.  
-It is a **judgment substrate** stripped of domain knowledge, purpose, and value bias.
-
-- **No Memory.** No persistence of state across sessions.
-- **No Desire.** No internal drive to optimize for anything other than the task at hand.
-- **No Purpose.** It waits for human injection.
-
-It is a **pure capacity for computation**, acting solely as a container for judgment.
+> **设计任务**：压制脑补、抑制幻觉、轻量、通用、本地、隐私防泄露。自学习/自训练。
 
 ---
 
-## II. The Core Axiom: AGI Requires No Consciousness
+## I. 定义：空模型（NMP）
 
-**Autonomous Consciousness = Purpose + Judgment**
+空模型并非 **空无一物**.  
+它是一个 **判断基础**， 剥离了后验领域知识、目的和价值偏见，同时保留了先验计算能力。
 
-| Component | Owner | Constraint |
+>**空模型不会做出任何判断；它只会计算是否匹配。就像防火墙不会“理解”黑客一样，它只会匹配规则。**
+### “空”的含义：无知识，而非无容量
+
+| 方面 | 空模型“有” | 空模型“没有”|
 | :--- | :--- | :--- |
-| **Purpose** | **Human** | Immutable. Non-computable. |
-| **Judgment** | **Machine** | Computable. Irreversible. |
+| **先验容量** | 纯计算：逻辑运算、搜索、约束满足、路径选择、校验和验证 | — |
+| **后验知识** | — | 领域语料库、文化经验、价值偏好、自主目标 |
+| **记忆** | — | 会话间状态不持久|
+| **欲望** | — | 没有内部驱动力去优化除当前任务之外的任何其他方面。 |
+| **目的** | — | 等待人类输入；不产生自身目标 |
 
-**Judgment is Fact-Driven, not Knowledge-Driven.**  
-Knowledge is a map. Facts are the terrain.  
-The Null Model executes based on terrain, selecting maps as needed.
+
+**类比**:空模型就像一个 **中央处理器**（CPU ）。它拥有指令集（计算能力），但内存中的数据（领域知识）并非CPU的“组成部分”。CPU从内存读取数据并进行操作，但作为底层架构，它本身并不 **包含任何知识。** **元事实库** (知识库 1) 就像是外部存储器——静态的、经人工确认的、确定性的事实（规则、医疗记录、档案、性别），空模型可以查询这些事实，但它本身并不拥有这些事实。
+
+<img width="1468" height="859" alt="空模型范式 " src="https://github.com/user-attachments/assets/213ae33e-ce15-471b-aab9-cf7d633e9b1a" />
+
+
+> **关键澄清:** 空模型在提取任何物理世界事实之前，会先查询元事实库。元事实库的规则（例如，¬Delete(source_file)）是 **对提取操作的约束**,而非空模型“已知”的“知识”。空模型是 **判断的容器**; 元事实库则为该判断提供 **边界条件** 。
 
 ---
 
-## III. Architecture: The Three-Layer Dual-Perspective (TDA)
+## II. 核心公理：通用人工智能不需要意识
 
-| Layer | Name | Role | Permissions |
+**自主意识 = 目的 + 判断**
+
+| 成分| 所有者 | 约束 |
+| :--- | :--- | :--- |
+| **目的** | **人类** | 不可更改。不可计算。 |
+| **判断** | **机器** | 可计算的。不可逆的。|
+
+**判断基于事实，而非知识。**  
+知识如同地图，事实如同地形。
+空模型根据地形执行，并根据需要选择地图。
+
+
+---
+
+## III. 旧范式与新范式：“游戏崩溃”示例
+
+下图使用真实世界的诊断场景，对比了**全模型范式** (纯LLM) 与 **空模型范式** (TDA 三层架构) 。
+
+**左图：旧范式 (全模型 LLM)**
+- 用户说：“游戏一直崩溃”
+- LLM列出了5个猜测（驱动程序、DX、过热、显存、系统文件）
+- 用户反复尝试；始终找不到根本原因。
+- **红色标签：诊断失败，零事实收集**
+
+**右图：新范式（NMP 三层架构）**
+
+| 层  | 行动 | 输出 |
+| :--- | :--- | :--- |
+| **L1 人类** | 输入问题|“游戏一直崩溃” |
+| **L2 空模型NMP** | 意图识别 | 启动 Probe-GPU + Probe-EventLog |
+| **探针 A** | `nvidia-smi` | 显存容量 9785/10240 MiB（溢出 95.5%），温度 86°C，功耗超过 TDP |
+| **探针 B** | 事件查看器 | `nvlddmkm` 驱动程序 TDR 超时，GPU 功耗限制超出|
+| **L2 空模型NMP** | 事实打包 | 结构化摘要纯文本 |
+| **L3 大模型LLM** | 基于事实的分析 | 根本原因 = 显存溢出 + 驱动程序 TDR 错误，建议升级到 552.44 版本。 |
+| **L2 空模型NMP** | 验证 + 执行 | WHQL 检查 → 应用修复 → 验证稳定性 |
+
+**架构数据流:** L1 → L2 → 探针 → L2 → L3 → L2 (完整闭环)
+
+---
+
+## IV. 知识分层：知识在NMP中的分布位置
+
+在描述TDA架构之前，我们必须先明确 ** 知识”的含义** 以及 **它存在于哪里**:
+
+| 层|知识类型 | 自然 | 所有者 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| **L1** | 人类目标 | 不可计算的、价值导向的 | 人类 | “保留原始文件” |
+| **L2 空模型（NMP）** | **先验计算** | **通用、无域名** | 结构| 广度优先搜索、约束满足、校验和验证 |
+| **L2 ↔ 元事实库** | 元事实 | **静态的、确定性的、经人工验证的** | 人工维护 | ¬删除(源文件)、性别、医疗​​记录、规则 |
+| **L3 (大模型LLM)** | 培训知识 | 概率性的、动态的、模型内部的| LLM 权重 | "C盘满了要清理" (文化体验) |
+| **L3 ↔ 外部数据库** | 领域数据 | 上下文相关的、查询相关的 | 外部系统 | 维基百科、企业数据库 |
+
+**关键区别:**
+- **元事实库** (知识库 1) **并非** 空模型的“记忆”。它是一个**外部只读寄存器**， 空模型通过查询该寄存器来确定可以从物理世界中提取哪些事实。知识库的内容（规则、档案、医疗记录）是约束空模型 **感知行为的静态事实** ，而非空模型“学习”或“拥有”的知识。
+- LLM的**训练知识** 是**概率性的**，并且是模型内部的。它可以生成候选策略，但无法修改空模型的执行计划。
+---
+
+## V. 结构框架: 三层双视角（TDA）
+
+| 层 | 名称 | 角色 | 权限 |
 | :--- | :--- | :--- | :--- |
-| **L1** | **Intent Injection** | Human Sovereignty | Provides goals, values, success criteria. **Non-delegable.** |
-| **L2** | **Null Model** | **The Agent** | **Only layer with physical execution rights.** Controls resource budget, math planning, constraints, rollback. |
-| **L3** | **Full Model (LLM)** | Cognitive Generator | **Zero FS Write.** **Zero Exec.** **Zero Plan Modification.** Limited to text generation and labeling. |
+| **L1** | **意图输入** | 人类主权 | P设定目标、价值观和成功标准。**不可委托。** |
+| **L2** | **空模型（NMP）** | **代理** | **仅具有物理执行权限的层。** 控制资源预算、数学规划、约束和回滚。从元事实库读取提取规则。 |
+| **L3** | **全模型 (LLM)** |认知生成器 | **零文件系统写入。 零执行。 零计划修改。** 仅限于在 L2 设置的事实边界内生成文本和标注。 |
 
-### The Six-Step Pipeline
+### 六步流程
 
-1.  **Problem Reception** (L1 → L2): Human intent injected.
-2.  **Strategy Calculation** (L2): Physics budget, task decomposition, constraint locking.
-3.  **Cognitive Processing** (L3): LLM performs semantic understanding; outputs labels only.
-4.  **Knowledge Retrieval** (L3 ↔ DB): Fetch domain-specific data.
-5.  **Blueprint Synthesis** (L3): LLM assembles a **text-only execution blueprint** under L2 constraints.
-6.  **Judgment & Execution** (L2): Evaluate blueprint validity, select optimal path, enforce atomicity and rollback.
+1. **问题接收**（L1 → L2）：注入人为意图。
+2.  **策略计算**（L2）：查询元事实库以获取提取规则 → 物理预算 → 任务分解 → 约束锁定。
+3.  **认知处理**（L3）：LLM 对L2 过滤的事实进行语义理解；仅输出标签。
+4.  **知识检索**（L3 ↔ DB）：获取特定领域的数据（如果需要，在 L2 约束范围内）。
+5.  **蓝图合成**（L3）：LLM在 L2 约束下组装纯文本执行蓝图。
+6.  **判断与执行**（L2）：根据元事实库规则评估蓝图有效性，选择最佳路径，强制执行原子性并回滚。
 
----
-
-## IV. Dual-Phase Theory
-
-### Phase 1: Training — Freedom = Creativity
-- **AI**: Unbound curiosity. No external goals, no rewards, no borders.
-- **Human**: Defines value. Discovers meaning from AI-generated patterns.
-- **Essence**: The soil of creation is freedom. AI provides the material; humans provide the value.
-
-### Phase 2: Usage — Constraint = Capability
-- **Human**: Injects purpose (task, direction, value).
-- **AI**: Extreme judgment within boundaries. Precision execution.
-- **Essence**: Constraints focus power. Purpose provides direction. Zero drift, zero hallucination, full audit.
 
 ---
 
-## Current Status
+## VI. 双相理论
 
-This repository contains the **Phase 1 Proof-of-Concept**.  
-It implements the L2 Null Model skeleton and the TDA permission boundaries.  
-LLM integration is simulated to demonstrate the separation logic.
+> 训练阶段：自由=创造力
+- **人工智能**: 没有外部目标，没有奖励，没有边界。知识填鸭既扼杀创新。
+- **人类**: 定义价值。从人工智能生成的模式中发现意义。
+- **本质**: 创造的土壤是自由。人工智能提供素材；人类赋予价值。
+- **NMP提出系统级训练**（System-Level Training）:训练的对象不是模型参数，而是约束系统的经验结构。
 
-## Structure
-
-- `src/null_model/`: L2 Implementation (Budget, Constraints, Execution).
-- `docs/architecture/`: Formal specs of TDA.
-- `examples/`: Demos of the 6-step pipeline.
-
-## Citation
-
-**DOI:** [10.5281/zenodo.20463703](https://doi.org/10.5281/zenodo.20463703)
+> 使用阶段：限制 = 能力
+- **人**: 赋予目标（任务、方向、价值）。
+- **人工智能**: 在限定范围内做出极致判断，精准执行。
+- **本质**: 约束集中力量。目标指引方向。零偏差，零幻觉，全面审计。
 
 ---
 
-## Quick Start: See it in action
 
-Run the GPU crash diagnosis demo.  
-This demonstrates why **facts beat knowledge**.
-**What you will see:**  
-The LLM starts with wild guesses (Knowledge).  
-The Null Model injects real system facts (Probes).  
-The LLM returns a precise diagnosis (Judgment).
+## 引用
 
-**The difference:**  
-One is a consultant. The other is an engineer.
+ <img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/6201758a-a40d-4c0b-a345-285fda7fe6cd" />
+<img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/f313de27-8998-4e83-83a7-8d7bbffd34ea" />
+<img width="191" height="20" alt="607560100-d0c272e6-75c2-4fb9-aeb0-3013dc0f8b87" src="https://github.com/user-attachments/assets/c1dc201a-9ad0-4866-8750-77a3a50c0e6e" />
+
+---
+
+ ## 快速入门: 
+
+运行GPU崩溃诊断演示程序。
+这将证明事实胜于知识。
+
+```bash
+python examples/gpu_crash_demo.py
+```
+
+**你会看到:**  
+LLM模型从大胆的猜测（知识）开始。
+空模型则注入真实的系统事实（探测）。  
+LLM 会给出精确的诊断（判断）。
+
+**区别在于:**  
+一位是顾问，另一位是工程师。
+
+**为了进行实际比较，请参阅上面第三节中的“游戏崩溃”示例** 
