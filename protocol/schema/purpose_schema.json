@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PurposeStructure",
+  "description": "人类目的的形式化结构——无价值负载，只有结构",
+  "type": "object",
+  "required": ["concern_type", "target_entities", "evaluation_dimensions"],
+  "properties": {
+    "concern_type": {
+      "type": "string",
+      "enum": ["diagnosis", "query", "optimize", "predict", "trend_analysis", "anomaly_detection", "forecast", "comparative"],
+      "description": "目的类型：诊断/查询/优化/预测/趋势分析/异常检测/预测/对比"
+    },
+    "target_entities": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "目标实体列表，如['cpu', 'memory', 'ollama']"
+    },
+    "evaluation_dimensions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "评估维度，如['performance', 'availability', 'stability']"
+    },
+    "temporal_scope": {
+      "type": "string",
+      "default": "current",
+      "description": "时间范围：current/recent/historical/future"
+    },
+    "causal_direction": {
+      "type": "string",
+      "enum": ["forward", "backward", "bidirectional"],
+      "default": "backward",
+      "description": "因果方向：forward(预测后果)/backward(追溯原因)"
+    },
+    "raw_question": {
+      "type": "string",
+      "description": "原始自然语言问题（保留用于调试）"
+    }
+  }
+}
