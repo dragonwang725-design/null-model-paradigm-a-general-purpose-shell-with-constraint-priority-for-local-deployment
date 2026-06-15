@@ -3,11 +3,18 @@ null model paradigm: a general-purpose shell with constraint priority for local 
  
 ——为什么大型语言模型应该是棋谱而不是棋手
 
-> **空模型范式认为：所有的判断基于事实，而事实的全景是无限的，提取跟目的相关和相符的事实，就能让 LLM 有判断力。**
+```
+版本：V3.0.0
+作者：loweswang
+邮箱：250734099@qq.com
+     dragonwang725@gmail.com
+```
 
+> **空模型范式认为：所有的判断基于事实，而事实的全景是无限的，提取跟目的相关和相符的事实，就能让 LLM 有判断力。**
+>
 >**LLM 不是主体，外壳才是。**
 这不是一个框架，而是将**目的-判断-知识**划分的架构规范。
-
+>
 > **设计任务**：压制脑补、抑制幻觉、轻量、通用、本地、隐私防泄露。自学习/自训练。
 
 ---
@@ -143,6 +150,24 @@ null model paradigm: a general-purpose shell with constraint priority for local 
 
  ## 快速入门: 
 
+ **相关理论内容**:
+ > *理论综述：v3-Overviewl.md
+ > 
+ > *元事实库（Meta-Fact Vault）设计：meta_fact_vault.md
+ >
+ > *双相理论 （dual-phase theory）：dual-phase theory.md
+ >
+ > *TDA 三层双视角架构论文原理精要：principles.md
+ >
+ > *TDA 架构文档（修正版）：architecture.md
+ >
+ > *NMP 逻辑一致性验证报告：LOGIC_VERIFICATION_REPORT.md
+ >
+ > *云端-本地交互协议：cloud_local_protocol.md
+
+
+
+#
 运行GPU崩溃诊断演示程序。
 这将证明事实胜于知识。
 
