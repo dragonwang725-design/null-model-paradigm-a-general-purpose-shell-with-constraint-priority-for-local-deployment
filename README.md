@@ -157,14 +157,13 @@ null model paradigm: a general-purpose shell with constraint priority for local 
  >
  > *双相理论 （dual-phase theory）：dual-phase theory.md
  >
+ > *云端-本地交互协议：cloud_local_protocol.md
+ >
  > *TDA 三层双视角架构论文原理精要：principles.md
  >
  > *TDA 架构文档（修正版）：architecture.md
  >
  > *NMP 逻辑一致性验证报告：LOGIC_VERIFICATION_REPORT.md
- >
- > *云端-本地交互协议：cloud_local_protocol.md
-
 
 
 #
