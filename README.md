@@ -2,12 +2,14 @@
 null model paradigm: a general-purpose shell with constraint priority for local deployment.
  
 ——为什么大型语言模型应该是棋谱而不是棋手
+##   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20715011.svg)](https://doi.org/10.5281/zenodo.20715011)
 
 ```
 版本：V3.0.0
 作者：loweswang
 邮箱：250734099@qq.com
      dragonwang725@gmail.com
+
 ```
 
 > **空模型范式认为：事实是判断的依据，而不是知识。所有的判断基于事实，而事实的全景是无限的，提取跟目的相关和相符的事实，就能让 LLM 有判断力。**
