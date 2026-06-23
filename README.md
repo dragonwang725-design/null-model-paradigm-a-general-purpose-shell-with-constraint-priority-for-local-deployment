@@ -2,7 +2,7 @@
 null model paradigm: a general-purpose shell with constraint priority for local deployment.
  
 ——为什么大型语言模型应该是棋谱而不是棋手
-##   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20715011.svg)](https://doi.org/10.5281/zenodo.20715011)
+##   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20715010.svg)](https://doi.org/10.5281/zenodo.20715010)
 
 ```
 版本：V3.0.0
